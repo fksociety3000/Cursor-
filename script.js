@@ -4,7 +4,7 @@ class AIFriend {
         this.isListening = false;
         this.isSpeaking = false;
         this.cameraStream = null;
-        this.apiBaseUrl = 'http://localhost:5000/api';
+        this.apiBaseUrl = 'http://localhost:8080/api';
         this.recognition = null;
         this.synthesis = window.speechSynthesis;
         this.activeResponseTypes = ['text'];
