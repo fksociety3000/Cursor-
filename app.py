@@ -1,10 +1,10 @@
-THIS SHOULD BE A LINTER ERRORfrom flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 import json
-from openai import OpenAI
+import google.generativeai as genai
 from gtts import gTTS
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,8 +31,10 @@ db = SQLAlchemy(app)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# OpenAI configuration
-openai_api_key = os.getenv('OPENAI_API_KEY', 'your-openai-api-key-here')
+# Gemini API configuration
+gemini_api_key = os.getenv('GEMINI_API_KEY', 'your-gemini-api-key-here')
+if gemini_api_key != 'your-gemini-api-key-here':
+    genai.configure(api_key=gemini_api_key)
 
 class Conversation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,8 +72,8 @@ class AIFriend:
             context_messages = []
             
             for conv in reversed(recent_conversations):
-                context_messages.append({"role": "user", "content": conv.user_input})
-                context_messages.append({"role": "assistant", "content": conv.ai_response})
+                context_messages.append(f"User: {conv.user_input}")
+                context_messages.append(f"Nova: {conv.ai_response}")
             
             # System prompt for the AI friend
             system_prompt = f"""You are Nova, an AI friend and teacher. You are:
@@ -90,22 +92,22 @@ class AIFriend:
             
             Current conversation context: {len(context_messages)} previous messages
             Evolution level: {self.personality['evolution_level']}
+            
+            Previous conversations:
+            {chr(10).join(context_messages[-10:]) if context_messages else "No previous conversations"}
+            
+            User's current message: {user_input}
+            
+            Please respond as Nova, keeping your response helpful, encouraging, and educational.
             """
             
-            messages = [{"role": "system", "content": system_prompt}]
-            messages.extend(context_messages)
-            messages.append({"role": "user", "content": user_input})
-            
-            client = OpenAI(api_key=openai_api_key)
-            
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=messages,
-                max_tokens=500,
-                temperature=0.7
-            )
-            
-            ai_response = response.choices[0].message.content
+            # Use Gemini API
+            if gemini_api_key == 'your-gemini-api-key-here':
+                ai_response = "I'm sorry, I need a valid Gemini API key to function. Please add your Gemini API key to the .env file."
+            else:
+                model = genai.GenerativeModel('gemini-pro')
+                response = model.generate_content(system_prompt)
+                ai_response = response.text
             
             # Determine topic from the conversation
             topic = self.extract_topic(user_input)
