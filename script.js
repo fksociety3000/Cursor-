@@ -4,7 +4,7 @@ class AIFriend {
         this.isListening = false;
         this.isSpeaking = false;
         this.cameraStream = null;
-        this.apiBaseUrl = 'http://localhost:8080/api';
+        this.apiBaseUrl = '/api';
         this.recognition = null;
         this.synthesis = window.speechSynthesis;
         this.activeResponseTypes = ['text'];
@@ -613,8 +613,9 @@ class AIFriend {
 }
 
 // Initialize the AI Friend when the page loads
+let aiApp;
 document.addEventListener('DOMContentLoaded', () => {
-    new AIFriend();
+    aiApp = new AIFriend();
 });
 
 // Service Worker for offline functionality (optional)
