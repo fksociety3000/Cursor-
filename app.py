@@ -105,7 +105,7 @@ class AIFriend:
             if gemini_api_key == 'your-gemini-api-key-here':
                 ai_response = "I'm sorry, I need a valid Gemini API key to function. Please add your Gemini API key to the .env file."
             else:
-                model = genai.GenerativeModel('gemini-pro')
+                model = genai.GenerativeModel('gemini-1.5-flash')
                 response = model.generate_content(system_prompt)
                 ai_response = response.text
             
