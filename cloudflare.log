@@ -1,0 +1,27 @@
+2025-07-06T18:02:05Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2025-07-06T18:02:05Z INF Requesting new quick Tunnel on trycloudflare.com...
+2025-07-06T18:02:08Z INF +--------------------------------------------------------------------------------------------+
+2025-07-06T18:02:08Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2025-07-06T18:02:08Z INF |  https://april-tax-ultram-frequencies.trycloudflare.com                                    |
+2025-07-06T18:02:08Z INF +--------------------------------------------------------------------------------------------+
+2025-07-06T18:02:08Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]
+2025-07-06T18:02:08Z INF Version 2025.7.0 (Checksum 51e3909335fd7ba2ed5c696b0a6fb7d4a74f6a15bf36615cea0fccba620cfb3f)
+2025-07-06T18:02:08Z INF GOOS: linux, GOVersion: go1.24.4, GoArch: amd64
+2025-07-06T18:02:08Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:5000]
+2025-07-06T18:02:08Z INF cloudflared will not automatically update if installed by a package manager.
+2025-07-06T18:02:08Z INF Generated Connector ID: e1553687-9a3d-47e3-9da3-9ffa99a39c79
+2025-07-06T18:02:08Z INF Initial protocol quic
+2025-07-06T18:02:08Z INF ICMP proxy will use 172.17.0.2 as source for IPv4
+2025-07-06T18:02:08Z INF ICMP proxy will use ::1 in zone lo as source for IPv6
+2025-07-06T18:02:08Z INF ICMP proxy will use 172.17.0.2 as source for IPv4
+2025-07-06T18:02:08Z INF ICMP proxy will use ::1 in zone lo as source for IPv6
+2025-07-06T18:02:08Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2025-07-06T18:02:08Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.167
+2025/07/06 18:02:08 failed to sufficiently increase receive buffer size (was: 208 kiB, wanted: 7168 kiB, got: 416 kiB). See https://github.com/quic-go/quic-go/wiki/UDP-Buffer-Sizes for details.
+2025-07-06T18:02:08Z INF Registered tunnel connection connIndex=0 connection=992bcb64-7820-44de-b6d1-8f0a773f4537 event=0 ip=198.41.192.167 location=sea01 protocol=quic
+2025-07-06T18:03:43Z INF Initiating graceful shutdown due to signal terminated ...
+2025-07-06T18:03:43Z ERR Failed to serve tunnel connection error="context canceled" connIndex=0 event=0 ip=198.41.192.167
+2025-07-06T18:03:43Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.167
+2025-07-06T18:03:43Z ERR no more connections active and exiting
+2025-07-06T18:03:43Z INF Tunnel server stopped
+2025-07-06T18:03:43Z INF Metrics server stopped

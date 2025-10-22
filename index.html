@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nova - Your AI Friend & Teacher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>Nova</span>
+                </div>
+                <div class="ai-status">
+                    <div class="status-indicator" id="aiStatus">
+                        <div class="pulse"></div>
+                        <span>Level <span id="evolutionLevel">1</span></span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="profileBtn" title="Profile">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="btn-icon" id="historyBtn" title="History">
+                        <i class="fas fa-history"></i>
+                    </button>
+                    <button class="btn-icon" id="settingsBtn" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message initial">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Hi! I'm Nova, your AI friend and teacher. I'm here to help you learn about anything you're curious about. 
+                                What would you like to explore today?
+                            </div>
+                            <div class="message-meta">
+                                <span class="topic-tag">general</span>
+                                <span class="timestamp">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual Display -->
+                <div class="visual-display" id="visualDisplay" style="display: none;">
+                    <div class="visual-header">
+                        <h3>Visual Learning</h3>
+                        <button class="btn-close" id="closeVisual">×</button>
+                    </div>
+                    <div class="visual-content">
+                        <img id="visualImage" alt="Visual content" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-modes">
+                        <button class="mode-btn active" data-mode="text" title="Text Input">
+                            <i class="fas fa-keyboard"></i>
+                        </button>
+                        <button class="mode-btn" data-mode="voice" title="Voice Input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="mode-btn" data-mode="camera" title="Camera Input">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="input-field">
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Ask me anything... I can teach you about any topic!"
+                            rows="1"
+                        ></textarea>
+                        <button class="btn-send" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="voice-controls" id="voiceControls" style="display: none;">
+                        <div class="voice-status">
+                            <div class="voice-animation">
+                                <div class="wave"></div>
+                                <div class="wave"></div>
+                                <div class="wave"></div>
+                            </div>
+                            <span id="voiceStatus">Click to start listening...</span>
+                        </div>
+                        <button class="btn-voice-toggle" id="voiceToggle">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="camera-controls" id="cameraControls" style="display: none;">
+                        <video id="cameraVideo" autoplay></video>
+                        <div class="camera-actions">
+                            <button class="btn-camera-capture" id="captureBtn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <button class="btn-camera-close" id="closeCameraBtn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="response-options">
+                    <button class="response-btn" id="textResponseBtn" title="Text Response">
+                        <i class="fas fa-align-left"></i>
+                        <span>Text</span>
+                    </button>
+                    <button class="response-btn" id="speechResponseBtn" title="Speech Response">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Speech</span>
+                    </button>
+                    <button class="response-btn" id="visualResponseBtn" title="Visual Response">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Visual</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar Panels -->
+        <div class="sidebar" id="sidebar">
+            <!-- Profile Panel -->
+            <div class="panel" id="profilePanel">
+                <div class="panel-header">
+                    <h3>Your Profile</h3>
+                    <div class="panel-actions">
+                        <button class="btn-back" onclick="aiApp.closePanel('profile')" title="Back to Chat">
+                            <i class="fas fa-arrow-left"></i> Back to Chat
+                        </button>
+                        <button class="btn-close" data-panel="profile">×</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="userName" placeholder="What should I call you?">
+                    </div>
+                    <div class="form-group">
+                        <label>Learning Style</label>
+                        <select id="learningStyle">
+                            <option value="visual">Visual</option>
+                            <option value="auditory">Auditory</option>
+                            <option value="kinesthetic">Kinesthetic</option>
+                            <option value="balanced">Balanced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Difficulty Level</label>
+                        <select id="difficultyLevel">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <div class="interests-tags" id="interestsTags">
+                            <span class="interest-tag">Science</span>
+                            <span class="interest-tag">Technology</span>
+                            <span class="interest-tag">Art</span>
+                            <span class="interest-tag">History</span>
+                            <span class="interest-tag">Mathematics</span>
+                            <span class="interest-tag">Literature</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="saveProfile">Save Profile</button>
+                </div>
+            </div>
+
+            <!-- History Panel -->
+            <div class="panel" id="historyPanel">
+                <div class="panel-header">
+                    <h3>Conversation History</h3>
+                    <div class="panel-actions">
+                        <button class="btn-back" onclick="aiApp.closePanel('history')" title="Back to Chat">
+                            <i class="fas fa-arrow-left"></i> Back to Chat
+                        </button>
+                        <button class="btn-close" data-panel="history">×</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="history-list" id="historyList">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div class="panel" id="settingsPanel">
+                <div class="panel-header">
+                    <h3>Settings</h3>
+                    <div class="panel-actions">
+                        <button class="btn-back" onclick="aiApp.closePanel('settings')" title="Back to Chat">
+                            <i class="fas fa-arrow-left"></i> Back to Chat
+                        </button>
+                        <button class="btn-close" data-panel="settings">×</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="setting-group">
+                        <h4>AI Evolution</h4>
+                        <div class="evolution-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="evolutionProgress"></div>
+                            </div>
+                            <div class="evolution-info">
+                                <span>Level <span id="currentLevel">1</span></span>
+                                <span id="progressText">0/10 conversations</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h4>Voice Settings</h4>
+                        <div class="form-group">
+                            <label>Speech Rate</label>
+                            <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Voice Pitch</label>
+                            <input type="range" id="voicePitch" min="0" max="2" step="0.1" value="1">
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h4>Visual Settings</h4>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="autoVisuals" checked>
+                                Auto-generate visuals
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Nova is thinking...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
